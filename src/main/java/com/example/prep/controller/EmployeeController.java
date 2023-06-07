@@ -5,6 +5,7 @@ import com.example.prep.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -85,6 +86,14 @@ public class EmployeeController {
     @GetMapping("/employee/page")
     public Page<Employee> getEmployeePage(@RequestParam(name = "pageNo") int pageNo,
                                           @RequestParam(name = "pageSize") int pageSize){
-        return repository.findAll(PageRequest.of(pageNo-1, pageSize));
+        return repository.findAll(PageRequest.of(pageNo-1, pageSize, Sort.by("id").ascending()));
     }
+
+    /*
+    * Pageable sortedByName = PageRequest.of(0, 3, Sort.by("lastName"));
+
+    Pageable sortedByPriceDesc = PageRequest.of(0, 3, Sort.by("salary").descending());
+
+    Pageable sortedByPriceDescNameAsc = PageRequest.of(0, 5, Sort.by("salary").descending().and(Sort.by("id")));
+    * */
 }

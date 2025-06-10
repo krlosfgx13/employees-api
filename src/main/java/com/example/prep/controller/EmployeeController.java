@@ -25,15 +25,28 @@ public class EmployeeController {
         return new Employee(1, "Caceres", "Antonio", "Software Engineer", 1000.00f, "Guatemala");
     }
 
+//    @PostMapping("/employee")
+//    public ResponseEntity<?> createEmployee(@RequestBody Employee employee){
+//        repository.save(employee);
+//        return new ResponseEntity<>("Employee was saved successfully", HttpStatus.CREATED);
+//    }
+
+//    @GetMapping("/employee/{id}")
+//    public Employee getEmployeeById(@PathVariable("id") Integer id){
+//
+//        return repository.findById(id).orElse(null);
+//    }
+
     @PostMapping("/employee")
-    public ResponseEntity<?> createEmployee(@RequestBody Employee employee){
+    public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee){
         repository.save(employee);
-        return new ResponseEntity<>("Employee was saved successfully", HttpStatus.CREATED);
+        return new ResponseEntity<>(employee, HttpStatus.CREATED);
     }
 
     @GetMapping("/employee/{id}")
-    public Employee getEmployeeById(@PathVariable("id") Integer id){
-        return repository.findById(id).orElse(null);
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") Integer id){
+
+        return new ResponseEntity<>(repository.findById(id).orElse(null), HttpStatus.OK);
     }
 
     @GetMapping("/employee/name")

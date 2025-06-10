@@ -45,7 +45,7 @@ jobs:
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy your-app-name \
-            --image us-central1-docker.pkg.dev/promising-env-281405 /my-docker-repo/employees-api:${{ github.sha }} \
+            --image us-central1-docker.pkg.dev/promising-env-281405/my-docker-repo/employees-api:${{ github.sha }} \
             --region us-central1 \
             --platform managed \
             --allow-unauthenticated

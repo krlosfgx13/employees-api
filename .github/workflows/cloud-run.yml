@@ -38,7 +38,7 @@ jobs:
 
       - name: Build and Push Docker image to Artifact Registry
         run: |
-          IMAGE=us-central1-docker.pkg.dev/promising-env-281405 /my-docker-repo/employees-api:${{ github.sha }}
+          IMAGE=us-central1-docker.pkg.dev/promising-env-281405/my-docker-repo/employees-api:${{ github.sha }}
           docker build -t $IMAGE .
           docker push $IMAGE
 

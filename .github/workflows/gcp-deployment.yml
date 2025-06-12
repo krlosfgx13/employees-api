@@ -13,6 +13,12 @@ env:
   APPLICATION_NAME: employees-api
 
 jobs:
+  run-tests:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - run: mvn test
+
   build:
     name: Build App
     runs-on: ubuntu-latest
@@ -33,7 +39,7 @@ jobs:
         run: mvn clean package -DskipTests # <-- used to executes terminal commands.
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v3 # <-- used to upload build artifacts (files/folders) from your workflow so they can be downloaded later (either in another job or manually from the Actions UI)
+        uses: actions/upload-artifact@v4 # <-- used to upload build artifacts (files/folders) from your workflow so they can be downloaded later (either in another job or manually from the Actions UI)
         with:
           name: app-jar
           path: target/*.jar
@@ -43,8 +49,7 @@ jobs:
     name: Print message if event is PR
     runs-on: ubuntu-latest
     steps:
-      - name: Run Tests
-        run: echo "Hello world"
+      - run: echo "Hello world"
 
   docker:
     name: Create Docker Container

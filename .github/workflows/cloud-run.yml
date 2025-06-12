@@ -1,9 +1,10 @@
 name: Build and Deploy to Cloud Run
 
 on:
-  push:
-    branches:
-      - main
+#  push:
+#    branches:
+#      - main
+  workflow_dispatch:
 
 jobs:
   build-deploy:
@@ -44,7 +45,7 @@ jobs:
 
       - name: Deploy to Cloud Run
         run: |
-          gcloud run deploy your-app-name \
+          gcloud run deploy employees-api \
             --image us-central1-docker.pkg.dev/promising-env-281405/my-docker-repo/employees-api:${{ github.sha }} \
             --region us-central1 \
             --platform managed \

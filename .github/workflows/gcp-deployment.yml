@@ -44,11 +44,14 @@ jobs:
       - name: Build with Maven
         run: mvn clean package -DskipTests # <-- used to executes terminal commands.
 
+      - name: Rename JAR to a fixed name
+        run: mv target/*.jar target/employees-api.jar
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v4 # <-- used to upload build artifacts (files/folders) from your workflow so they can be downloaded later (either in another job or manually from the Actions UI)
         with:
           name: app-jar # <-- Artifact name.
-          path: target/*.jar
+          path: target/employees-api.jar
 
   print-message-pr:
     if: github.event_name == 'pull_request'
@@ -70,6 +73,9 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: app-jar # <-- Artifact name.
+
+      - name: List files in workspace after artifact download # Debug step.
+        run: ls -R
 
       - name: Move JAR into expected Docker build path
         run: |

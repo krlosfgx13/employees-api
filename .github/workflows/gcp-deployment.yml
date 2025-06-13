@@ -47,7 +47,7 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-artifact@v4 # <-- used to upload build artifacts (files/folders) from your workflow so they can be downloaded later (either in another job or manually from the Actions UI)
         with:
-          name: app-jar
+          name: app-jar # <-- Artifact name.
           path: target/*.jar
 
   print-message-pr:
@@ -69,10 +69,12 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: app-jar
+          name: app-jar # <-- Artifact name.
 
-      - name: Move JAR into Docker context
-        run: mkdir -p target && mv app-jar/*.jar target/
+      - name: Move JAR into expected Docker build path
+        run: |
+          mkdir -p target
+          mv app-jar/*.jar target/employees-api.jar
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
@@ -87,9 +89,9 @@ jobs:
       - name: Configure Docker for Artifact Registry
         run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
-      - name: Build and Push Docker image to Artifact Registry
+      - name: Build and Push Docker image
         run: |
-          IMAGE=us-central1-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/my-docker-repo/${{env.APPLICATION_NAME}}:${{ github.sha }}
+          IMAGE=us-central1-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/my-docker-repo/${{ env.APPLICATION_NAME }}:${{ github.sha }}
           docker build -t $IMAGE .
           docker push $IMAGE
 

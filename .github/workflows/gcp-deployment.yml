@@ -15,7 +15,7 @@ env:
 jobs:
   run-tests:
     name: Run Tests
-    uses: krlosfgx13/employees-api/blob/development/.github/workflows/tests.yml@main
+    uses: ./.github/workflows/tests.yml
 
 #    runs-on: ubuntu-latest
 #    steps:

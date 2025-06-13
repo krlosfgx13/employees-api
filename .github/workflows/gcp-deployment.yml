@@ -115,7 +115,7 @@ jobs:
 
       - name: Deploy to Cloud Run
         run: |
-          gcloud run deploy ${{env.APPLICATION_NAME}}
+          gcloud run deploy ${{env.APPLICATION_NAME}} \
             --image us-central1-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/my-docker-repo/${{env.APPLICATION_NAME}}:${{ github.sha }} \
             --region us-central1 \
             --platform managed \

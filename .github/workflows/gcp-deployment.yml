@@ -77,7 +77,7 @@ jobs:
       - name: Move JAR into expected Docker build path
         run: |
           mkdir -p target
-          mv app-jar/*.jar target/employees-api.jar
+          mv *.jar target/employees-api.jar
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1

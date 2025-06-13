@@ -71,6 +71,9 @@ jobs:
         with:
           name: app-jar
 
+      - name: Move JAR into Docker context
+        run: mkdir -p target && mv app-jar/*.jar target/
+
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
         with:

@@ -9,7 +9,7 @@ on:
       - main
 
 env:
-  GCP_PROJECT_ID: my-project-id
+  GCP_PROJECT_ID: promising-env-281405
   APPLICATION_NAME: employees-api
 
 jobs:

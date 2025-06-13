@@ -1,0 +1,23 @@
+name: Build and Deploy to Cloud Run
+
+on:
+  #  push:
+  #    branches:
+  #      - main
+  workflow_call:
+
+jobs:
+  run-tests:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3 # <-- Clones your GitHub repository into the runner (the VM executing the workflow)
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3  # <-- used to set up a specific Java Development Kit (JDK) version on the runner
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Run tests with Maven
+        run: mvn test # <-- used to executes terminal commands.

@@ -1,0 +1,35 @@
+name: Deploy App
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Choose target environment"
+        required: true
+        type: choice
+        options:
+          - dev
+          - staging
+          - prod
+      action:
+        description: "Action to perform"
+        required: true
+        type: choice
+        options:
+          - deploy
+          - rollback
+
+jobs:
+  deploy:
+    if: ${{ github.event.inputs.action == 'deploy' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to ${{ github.event.inputs.environment }}
+        run: echo "Deploying to ${{ github.event.inputs.environment }}"
+
+  rollback:
+    if: ${{ github.event.inputs.action == 'rollback' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Rollback in ${{ github.event.inputs.environment }}
+        run: echo "Rolling back in ${{ github.event.inputs.environment }}"

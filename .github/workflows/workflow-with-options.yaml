@@ -6,14 +6,6 @@ on:
       - main
   workflow_dispatch:
     inputs:
-      environment:
-        description: "Choose target environment"
-        required: true
-        type: choice
-        options:
-          - dev
-          - staging
-          - prod
       action:
         description: "Action to perform"
         required: true
